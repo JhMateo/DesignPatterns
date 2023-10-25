@@ -1,6 +1,7 @@
 package com.patron.observer.views;
 
 import com.patron.observer.implementation.Observador;
+import com.patron.observer.model.SensorData;
 
 import javax.swing.*;
 import javax.swing.table.DefaultTableModel;
@@ -49,12 +50,20 @@ public class TableReport extends JFrame implements Observador {
     }
 
     @Override
-    public void actualizar(Map<String, Double> data) {
+    public void actualizar(Map<String, SensorData> data) {
         model.setRowCount(0);
 
-        addRow("Temperature", data.get("Temperature"));
-        addRow("Humidity", data.get("Humidity"));
-        addRow("Pressure", data.get("Pressure"));
+        for (Map.Entry<String, SensorData> entry : data.entrySet()) {
+            SensorData sensorData = entry.getValue();
+
+            addRow("Temperature", sensorData.getTemperature());
+            addRow("Humidity", sensorData.getHumidity());
+            addRow("Pressure", sensorData.getPressure());
+            // TODO: Aquí siempre pide que sea double, why? :v
+            //  por eso no deja imprimir la fecha
+            // addRow("ObservationDate", sensorData.getObservationDate());
+
+        }
     }
 
     private void addRow(String measure, Double value) {

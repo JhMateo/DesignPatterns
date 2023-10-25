@@ -1,18 +1,20 @@
 package com.patron.observer.implementation;
 
+import com.patron.observer.model.SensorData;
+
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Map;
 
 public class FuenteDeDatos implements Observable {
-    private Map<String, Double> estado;
+    private Map<String, SensorData> estado;
     private List<Observador> listadoObservadores = new ArrayList<>();
 
-    public Map<String, Double> obtenerEstado() {
+    public Map<String, SensorData> obtenerEstado() {
         return estado;
     }
 
-    public void establecerEstado(Map<String, Double> nuevoEstado) {
+    public void establecerEstado(Map<String, SensorData> nuevoEstado) {
         estado = nuevoEstado;
         notificar();
     }

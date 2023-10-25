@@ -1,5 +1,8 @@
 package com.patron.observer.implementation;
 
+import com.patron.observer.model.SensorData;
+
+import java.time.LocalDateTime;
 import java.util.HashMap;
 import java.util.Map;
 import java.util.Random;
@@ -14,11 +17,17 @@ public class Sensores {
     }
 
     public void generarYEnviarDatosAleatorios() {
+
         for (int i = 0; i < 30; i++) {
-            Map<String, Double> datos = new HashMap<>();
-            datos.put("Temperature", 20 + random.nextDouble() * random.nextInt(1, 10));
-            datos.put("Humidity", 40 + random.nextDouble() * random.nextInt(1, 20));
-            datos.put("Pressure", 900 + random.nextDouble() * random.nextInt(1, 100));
+            SensorData sensorData = new SensorData();
+            sensorData.setTemperature(20 + random.nextDouble() * 10);
+            sensorData.setHumidity(40 + random.nextDouble() * 20);
+            sensorData.setPressure(900 + random.nextDouble() * 100);
+            sensorData.setObservationDate(LocalDateTime.now());
+
+            // Crear un mapa para almacenar los datos
+            Map<String, SensorData> datos = new HashMap<>();
+            datos.put("DatosSensor", sensorData);
 
             fuenteDeDatos.establecerEstado(datos);
 

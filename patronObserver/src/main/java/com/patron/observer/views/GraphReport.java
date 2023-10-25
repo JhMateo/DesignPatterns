@@ -1,6 +1,7 @@
 package com.patron.observer.views;
 
 import com.patron.observer.implementation.Observador;
+import com.patron.observer.model.SensorData;
 import org.jfree.chart.ChartFactory;
 import org.jfree.chart.ChartPanel;
 import org.jfree.chart.JFreeChart;
@@ -86,26 +87,31 @@ public class GraphReport extends JFrame implements Observador {
     }
 
     @Override
-    public void actualizar(Map<String, Double> data) {
+    public void actualizar(Map<String, SensorData> data) {
         datasetPressure.clear();
         datasetHumidity.clear();
         datasetTemperature.clear();
 
-        data.forEach((measure, value) -> {
+        for (Map.Entry<String, SensorData> entry : data.entrySet()) {
+            //TODO: measure siempre es 'DatosSensor' y nunca entra al switch, por eso no grafica,
+            // ver como solucionar
+            String measure = entry.getKey();
+            SensorData sensorData = entry.getValue();
+
             switch (measure) {
                 case "Pressure":
-                    datasetPressure.addValue(value, "Pressure", measure);
+                    datasetPressure.addValue(sensorData.getPressure(), "Pressure", measure);
                     break;
                 case "Humidity":
-                    datasetHumidity.addValue(value, "Humidity", measure);
+                    datasetHumidity.addValue(sensorData.getHumidity(), "Humidity", measure);
                     break;
                 case "Temperature":
-                    datasetTemperature.addValue(value, "Temperature", measure);
+                    datasetTemperature.addValue(sensorData.getTemperature(), "Temperature", measure);
                     break;
                 default:
                     break;
             }
-        });
+        }
 
         chartPanelPressure.repaint();
         chartPanelHumidity.repaint();
