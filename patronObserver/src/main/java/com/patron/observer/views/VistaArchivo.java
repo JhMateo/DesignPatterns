@@ -2,6 +2,7 @@ package com.patron.observer.views;
 
 import com.patron.observer.implementation.Observador;
 
+import java.util.Map;
 import java.io.File;
 import java.io.FileWriter;
 import java.io.IOException;
@@ -15,7 +16,7 @@ public class VistaArchivo implements Observador {
     }
 
     @Override
-    public void actualizar(String estado) {
+    public void actualizar(Map<String, Double> estado) {
         try (FileWriter writer = new FileWriter(archivoNombre, true)) {
             writer.write(estado + "\n");
         } catch (IOException e) {

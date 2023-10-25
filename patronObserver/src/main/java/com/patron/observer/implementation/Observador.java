@@ -1,5 +1,7 @@
 package com.patron.observer.implementation;
 
+import java.util.Map;
+
 public interface Observador {
-    void actualizar(String estado);
+    void actualizar(Map<String, Double> estado);
 }

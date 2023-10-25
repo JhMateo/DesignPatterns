@@ -1,5 +1,7 @@
 package com.patron.observer.implementation;
 
+import java.util.HashMap;
+import java.util.Map;
 import java.util.Random;
 import java.util.concurrent.TimeUnit;
 
@@ -13,9 +15,13 @@ public class Sensores {
 
     public void generarYEnviarDatosAleatorios() {
         for (int i = 0; i < 30; i++) {
-            double datos = random.nextDouble() * 100; // Datos aleatorios
-            fuenteDeDatos.establecerEstado("Datos generados por Sensores: " + datos);
-            // Pausa de 2 segundos
+            Map<String, Double> datos = new HashMap<>();
+            datos.put("Temperature", 20 + random.nextDouble() * random.nextInt(1, 10));
+            datos.put("Humidity", 40 + random.nextDouble() * random.nextInt(1, 20));
+            datos.put("Pressure", 900 + random.nextDouble() * random.nextInt(1, 100));
+
+            fuenteDeDatos.establecerEstado(datos);
+
             try {
                 TimeUnit.SECONDS.sleep(1);
             } catch (InterruptedException e) {
