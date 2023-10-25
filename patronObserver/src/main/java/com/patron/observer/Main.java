@@ -3,9 +3,7 @@ package com.patron.observer;
 import com.patron.observer.implementation.FuenteDeDatos;
 import com.patron.observer.implementation.Observador;
 import com.patron.observer.implementation.Sensores;
-import com.patron.observer.views.VistaArchivo;
-import com.patron.observer.views.VistaConsola;
-import com.patron.observer.views.VistaBaseDatos;
+import com.patron.observer.views.*;
 
 public class Main {
     public static void main(String[] args) {
@@ -17,11 +15,15 @@ public class Main {
         Observador vistaConsola = new VistaConsola();
         Observador vistaBaseDatos = new VistaBaseDatos();
         Observador vistaArchivo = new VistaArchivo("datosSensor");
+        Observador vistaGrafica = new GraphReport();
+        Observador vistaTabla = new TableReport();
 
         // Registrar observadores en FuenteDeDatos
         fuenteDeDatos.adicionarObservador(vistaConsola);
         fuenteDeDatos.adicionarObservador(vistaBaseDatos);
         fuenteDeDatos.adicionarObservador(vistaArchivo);
+        fuenteDeDatos.adicionarObservador(vistaGrafica);
+        fuenteDeDatos.adicionarObservador(vistaTabla);
 
         // Crear instancia de Sensores y enviar datos
         Sensores sensores = new Sensores(fuenteDeDatos);
