@@ -6,6 +6,8 @@ import com.patron.observer.model.SensorData;
 import javax.swing.*;
 import javax.swing.table.DefaultTableModel;
 import java.awt.*;
+import java.time.LocalDateTime;
+import java.util.Date;
 import java.util.Map;
 
 public class TableReport extends JFrame implements Observador {
@@ -20,7 +22,7 @@ public class TableReport extends JFrame implements Observador {
     private void createUIComponents() {
         this.setTitle("Table Report");
         this.setDefaultCloseOperation(WindowConstants.EXIT_ON_CLOSE);
-        this.setSize(300, 300);
+        this.setSize(400, 300);
 
         // Create a panel and set a modern layout
         JPanel panel = new JPanel(new BorderLayout());
@@ -50,23 +52,17 @@ public class TableReport extends JFrame implements Observador {
     }
 
     @Override
-    public void actualizar(Map<String, SensorData> data) {
+    public void actualizar(SensorData data) {
         model.setRowCount(0);
 
-        for (Map.Entry<String, SensorData> entry : data.entrySet()) {
-            SensorData sensorData = entry.getValue();
+        addRow("Temperature", Double.toString(data.getTemperature()));
+        addRow("Humidity", Double.toString(data.getHumidity()));
+        addRow("Pressure", Double.toString(data.getPressure()));
+        addRow("ObservationDate", data.getObservationDate().toString());
 
-            addRow("Temperature", sensorData.getTemperature());
-            addRow("Humidity", sensorData.getHumidity());
-            addRow("Pressure", sensorData.getPressure());
-            // TODO: Aquí siempre pide que sea double, why? :v
-            //  por eso no deja imprimir la fecha
-            // addRow("ObservationDate", sensorData.getObservationDate());
-
-        }
     }
 
-    private void addRow(String measure, Double value) {
+    private void addRow(String measure, String value) {
         model.addRow(new Object[]{measure, value});
     }
 }

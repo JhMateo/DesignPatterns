@@ -7,14 +7,14 @@ import java.util.List;
 import java.util.Map;
 
 public class FuenteDeDatos implements Observable {
-    private Map<String, SensorData> estado;
+    private SensorData estado;
     private List<Observador> listadoObservadores = new ArrayList<>();
 
-    public Map<String, SensorData> obtenerEstado() {
+    public SensorData obtenerEstado() {
         return estado;
     }
 
-    public void establecerEstado(Map<String, SensorData> nuevoEstado) {
+    public void establecerEstado(SensorData nuevoEstado) {
         estado = nuevoEstado;
         notificar();
     }

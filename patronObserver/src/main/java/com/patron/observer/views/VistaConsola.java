@@ -7,18 +7,14 @@ import java.util.Map;
 
 public class VistaConsola implements Observador {
     @Override
-    public void actualizar(Map<String, SensorData> estado) {
+    public void actualizar(SensorData estado) {
         System.out.println("\nDatos recibidos:");
 
-        for (Map.Entry<String, SensorData> entry : estado.entrySet()) {
-            SensorData sensorData = entry.getValue();
-
-            System.out.println("Id: " + sensorData.getId());
-            System.out.println("Temperatura: " + sensorData.getTemperature());
-            System.out.println("Humedad: " + sensorData.getHumidity());
-            System.out.println("Presión: " + sensorData.getPressure());
-            System.out.println("Fecha de Observación: " + sensorData.getObservationDate());
-            System.out.println();
-        }
+        System.out.println("Id: " + estado.getId());
+        System.out.println("Temperatura: " + estado.getTemperature());
+        System.out.println("Humedad: " + estado.getHumidity());
+        System.out.println("Presión: " + estado.getPressure());
+        System.out.println("Fecha de Observación: " + estado.getObservationDate());
+        System.out.println();
     }
 }

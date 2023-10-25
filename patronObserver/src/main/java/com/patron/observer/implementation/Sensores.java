@@ -18,18 +18,14 @@ public class Sensores {
 
     public void generarYEnviarDatosAleatorios() {
 
-        for (int i = 0; i < 30; i++) {
+        while(true){
             SensorData sensorData = new SensorData();
             sensorData.setTemperature(20 + random.nextDouble() * 10);
             sensorData.setHumidity(40 + random.nextDouble() * 20);
             sensorData.setPressure(900 + random.nextDouble() * 100);
             sensorData.setObservationDate(LocalDateTime.now());
 
-            // Crear un mapa para almacenar los datos
-            Map<String, SensorData> datos = new HashMap<>();
-            datos.put("DatosSensor", sensorData);
-
-            fuenteDeDatos.establecerEstado(datos);
+            fuenteDeDatos.establecerEstado(sensorData);
 
             try {
                 TimeUnit.SECONDS.sleep(1);

@@ -15,9 +15,8 @@ public class VistaBaseDatos implements Observador {
     }
 
     @Override
-    public void actualizar(Map<String, SensorData> estado) {
+    public void actualizar(SensorData estado) {
         GenericDTO<SensorData> sensorDataDTO = new GenericDTO<>(SensorData.class, "SensorData", List.of("id"));
-        SensorData sensorData = estado.get("DatosSensor");
-        sensorDataDTO.insert(sensorData);
+        sensorDataDTO.insert(estado);
     }
 }

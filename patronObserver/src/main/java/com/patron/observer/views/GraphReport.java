@@ -10,7 +10,10 @@ import org.jfree.data.category.DefaultCategoryDataset;
 
 import javax.swing.*;
 import java.awt.*;
+import java.util.ArrayList;
+import java.util.List;
 import java.util.Map;
+import java.util.Map.Entry;
 
 public class GraphReport extends JFrame implements Observador {
 
@@ -87,31 +90,14 @@ public class GraphReport extends JFrame implements Observador {
     }
 
     @Override
-    public void actualizar(Map<String, SensorData> data) {
+    public void actualizar(SensorData data) {
         datasetPressure.clear();
         datasetHumidity.clear();
         datasetTemperature.clear();
 
-        for (Map.Entry<String, SensorData> entry : data.entrySet()) {
-            //TODO: measure siempre es 'DatosSensor' y nunca entra al switch, por eso no grafica,
-            // ver como solucionar
-            String measure = entry.getKey();
-            SensorData sensorData = entry.getValue();
-
-            switch (measure) {
-                case "Pressure":
-                    datasetPressure.addValue(sensorData.getPressure(), "Pressure", measure);
-                    break;
-                case "Humidity":
-                    datasetHumidity.addValue(sensorData.getHumidity(), "Humidity", measure);
-                    break;
-                case "Temperature":
-                    datasetTemperature.addValue(sensorData.getTemperature(), "Temperature", measure);
-                    break;
-                default:
-                    break;
-            }
-        }
+        datasetPressure.addValue(data.getPressure(), "Pressure", "Pressure");
+        datasetHumidity.addValue(data.getHumidity(), "Humidity", "Humidity");
+        datasetTemperature.addValue(data.getTemperature(), "Temperature", "Temperature");
 
         chartPanelPressure.repaint();
         chartPanelHumidity.repaint();

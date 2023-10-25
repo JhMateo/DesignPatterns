@@ -17,18 +17,15 @@ public class VistaArchivo implements Observador {
     }
 
     @Override
-    public void actualizar(Map<String, SensorData> estado) {
+    public void actualizar(SensorData estado) {
         try (FileWriter writer = new FileWriter(archivoNombre, true)) {
-            for (Map.Entry<String, SensorData> entry : estado.entrySet()) {
-                SensorData sensorData = entry.getValue();
-
-                writer.write("Id: " + sensorData.getId() + "\n");
-                writer.write("Temperatura: " + sensorData.getTemperature() + "\n");
-                writer.write("Humedad: " + sensorData.getHumidity() + "\n");
-                writer.write("Presión: " + sensorData.getPressure() + "\n");
-                writer.write("Fecha de Observación: " + sensorData.getObservationDate() + "\n\n");
+                writer.write("Id: " + estado.getId() + "\n");
+                writer.write("Temperatura: " + estado.getTemperature() + "\n");
+                writer.write("Humedad: " + estado.getHumidity() + "\n");
+                writer.write("Presión: " + estado.getPressure() + "\n");
+                writer.write("Fecha de Observación: " + estado.getObservationDate() + "\n\n");
             }
-        } catch (IOException e) {
+        catch (IOException e) {
             System.err.println("Error al escribir en el archivo: " + e.getMessage());
         }
     }

@@ -1,21 +1,22 @@
 package com.patron.observer.model;
 
 import java.time.LocalDateTime;
+import java.util.HashMap;
+import java.util.Map;
 import java.util.UUID;
 
 public class SensorData {
-    private String id;
+    private final String id;
     private double temperature;
     private double humidity;
     private double pressure;
     private LocalDateTime observationDate;
 
-    // Getters y setters para id y data
-
     public SensorData() {
         this.id = String.valueOf(UUID.randomUUID());
     }
 
+    // Getters y setters para id y data
     public String getId() {
         return id;
     }
@@ -30,6 +31,15 @@ public class SensorData {
 
     public double getTemperature() {
         return temperature;
+    }
+
+    public Map<String, Double> getData() {
+        Map<String, Double> dataMap = new HashMap<>();
+        dataMap.put("Humidity", humidity);
+        dataMap.put("Pressure", pressure);
+        dataMap.put("Temperature", temperature);
+
+        return dataMap;
     }
 
     public LocalDateTime getObservationDate() {
@@ -51,4 +61,6 @@ public class SensorData {
     public void setObservationDate(LocalDateTime observationDate) {
         this.observationDate = observationDate;
     }
+
+
 }
