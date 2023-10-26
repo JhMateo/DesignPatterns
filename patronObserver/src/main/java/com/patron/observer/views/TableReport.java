@@ -6,63 +6,75 @@ import com.patron.observer.model.SensorData;
 import javax.swing.*;
 import javax.swing.table.DefaultTableModel;
 import java.awt.*;
-import java.time.LocalDateTime;
-import java.util.Date;
-import java.util.Map;
+import java.util.ArrayList;
+import java.util.List;
 
 public class TableReport extends JFrame implements Observador {
 
     private DefaultTableModel model = new DefaultTableModel();
     private JTable table = new JTable(model);
+    private List<Object[]> dataHistory = new ArrayList<>(); // Historial de datos o historico
 
     public TableReport() {
         createUIComponents();
     }
 
     private void createUIComponents() {
-        this.setTitle("Table Report");
-        this.setDefaultCloseOperation(WindowConstants.EXIT_ON_CLOSE);
-        this.setSize(400, 300);
+        setTitle("Table Report");
+        setDefaultCloseOperation(WindowConstants.EXIT_ON_CLOSE);
+        setSize(400, 300);
 
-        // Create a panel and set a modern layout
+        // Se crea un panel y se establece el diseño
         JPanel panel = new JPanel(new BorderLayout());
 
-        // Customize table appearance
+        // SE personaliza la apariencia de la tabla
         table.setRowHeight(30);
         table.setShowGrid(true);
         table.getTableHeader().setFont(new Font("Sans-Serif", Font.BOLD, 14));
         table.setFont(new Font("Sans-Serif", Font.PLAIN, 12));
 
-        // Add table columns
-        model.addColumn("Measure");
-        model.addColumn("Value");
+        // Aqui se agrgaron las columnas
+        model.addColumn("ObservationDate");
+        model.addColumn("Temperature");
+        model.addColumn("Humidity");
+        model.addColumn("Pressure");
 
-        // Create a scroll pane and add the table to it
+        // Se Crea un panel de desplazamiento y agregamos la tabla a el
         JScrollPane scrollPane = new JScrollPane(table);
 
-        // Add the scroll pane to the panel
+        // Agrega el panel de desplazamiento al panel principal
         panel.add(scrollPane, BorderLayout.CENTER);
 
-        // Add the panel to the frame
-        this.setContentPane(panel);
+        // Establecemos el contenido del marco como el panel principal
+        setContentPane(panel);
 
-        // Set location to top left corner
-        this.setLocation(0, 0);
-        this.setVisible(true);
+        // Establecemos la ubicación en la esquina superior izquierda
+        setLocation(0, 0);
+        setVisible(true);
     }
 
     @Override
     public void actualizar(SensorData data) {
-        model.setRowCount(0);
-
-        addRow("Temperature", Double.toString(data.getTemperature()));
-        addRow("Humidity", Double.toString(data.getHumidity()));
-        addRow("Pressure", Double.toString(data.getPressure()));
-        addRow("ObservationDate", data.getObservationDate().toString());
-
+        Object[] rowData = {
+                data.getObservationDate().toString(), // fecha
+                data.getTemperature(),
+                data.getHumidity(),
+                data.getPressure()
+        };
+        dataHistory.add(rowData);
+        refreshTable();
     }
 
-    private void addRow(String measure, String value) {
-        model.addRow(new Object[]{measure, value});
+    private void refreshTable() {
+        model.setRowCount(0); // Limpiamos la tabla antes de llenarla con los datos historicos.
+        for (Object[] rowData : dataHistory) {
+            model.addRow(rowData);
+        }
+    }
+
+    public static void main(String[] args) {
+        SwingUtilities.invokeLater(() -> {
+            new TableReport();
+        });
     }
 }
