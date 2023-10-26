@@ -15,8 +15,8 @@ public class Main {
         Observador vistaConsola = new VistaConsola();
         Observador vistaBaseDatos = new VistaBaseDatos();
         Observador vistaArchivo = new VistaArchivo("datosSensor");
-        Observador vistaGrafica = new GraphReport();
-        Observador vistaTabla = new TableReport();
+        Observador vistaGrafica = new InformeGrafico();
+        Observador vistaTabla = new InformeTabla();
 
         // Registrar observadores en FuenteDeDatos
         fuenteDeDatos.adicionarObservador(vistaConsola);

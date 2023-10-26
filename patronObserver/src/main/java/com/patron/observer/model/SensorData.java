@@ -21,15 +21,15 @@ public class SensorData {
         return id;
     }
 
-    public double getHumidity() {
+    public double obtenerHumedad() {
         return humidity;
     }
 
-    public double getPressure() {
+    public double obtenerPresion() {
         return pressure;
     }
 
-    public double getTemperature() {
+    public double obtenerTemperatura() {
         return temperature;
     }
 
@@ -42,7 +42,7 @@ public class SensorData {
         return dataMap;
     }
 
-    public LocalDateTime getObservationDate() {
+    public LocalDateTime obtenerObservacionFecha() {
         return observationDate;
     }
 
