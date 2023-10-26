@@ -4,6 +4,7 @@ import com.patron.observer.implementation.Observador;
 import com.patron.observer.model.SensorData;
 
 import javax.swing.*;
+import javax.swing.table.DefaultTableCellRenderer;
 import javax.swing.table.DefaultTableModel;
 import java.awt.*;
 import java.util.ArrayList;
@@ -33,6 +34,11 @@ public class InformeTabla extends JFrame implements Observador {
         tabla.getTableHeader().setFont(new Font("Sans-Serif", Font.BOLD, 14));
         tabla.setFont(new Font("Sans-Serif", Font.PLAIN, 12));
 
+        // Centramos los valores en la tabla
+        DefaultTableCellRenderer renderizarCentral = new DefaultTableCellRenderer();
+        renderizarCentral.setHorizontalAlignment(SwingConstants.CENTER);
+        tabla.setDefaultRenderer(Object.class, renderizarCentral);
+
         // Aqui se agrgaron las columnas
         modelo.addColumn("ObservationDate");
         modelo.addColumn("Temperature");
@@ -48,8 +54,7 @@ public class InformeTabla extends JFrame implements Observador {
         // Establecemos el contenido del marco como el panel principal
         setContentPane(panel);
 
-        // Establecemos la ubicación en el centro de la pantalla
-        //setLocationRelativeTo(null); // Esto centrará la ventana en la pantalla
+        // Establecemos la ubicación en la esquina superior izquierda (ubicación predeterminada)
         setVisible(true);
     }
 
